@@ -1,0 +1,154 @@
+GET /v1/partneros/meta/pricing/quote
+module: freetext
+path: freetext
+
+{
+  "fieldsDetails": {
+    "fields": [
+      {
+        "name": "sender.country",
+        "label": "Sender Country",
+        "uiFieldType": "LIST",
+        "required": "M",
+        "listValue": [
+          {
+            "displayValue": "Canada",
+            "id": "CA"
+          },
+          {
+            "displayValue": "United States",
+            "id": "US"
+          },
+          {
+            "displayValue": "Mexico",
+            "id": "MX"
+          },
+          {
+            "displayValue": "India",
+            "id": "IN"
+          }
+        ]
+      },
+      {
+        "name": "sender.currency",
+        "label": "Sender Currency",
+        "uiFieldType": "LIST",
+        "required": "M",
+        "listValue": [
+          {
+            "displayValue": "Canadian Dollar",
+            "id": "CAD"
+          },
+          {
+            "displayValue": "US Dollars",
+            "id": "USD"
+          },
+          {
+            "displayValue": "Euro",
+            "id": "EUR"
+          },
+          {
+            "displayValue": "Indian Rupee",
+            "id": "INR"
+          }
+        ]
+      },
+      {
+        "name": "payoutMethod",
+        "label": "payout Method",
+        "uiFieldType": "LIST",
+        "required": "M",
+        "listValue": [
+          {
+            "displayValue": "Money In Minutes",
+            "id": "MIM"
+          },
+          {
+            "displayValue": "Direct To Bank",
+            "id": "D2B"
+          },
+          {
+            "displayValue": "CASH",
+            "id": "CA"
+          },
+          {
+            "displayValue": "Direct to Card",
+            "id": "D2C"
+          }
+        ]
+      },
+      {
+        "name": "payinMethod",
+        "label": "payin Method",
+        "uiFieldType": "LIST",
+        "required": "M",
+        "listValue": [
+          {
+            "displayValue": "CASH",
+            "id": "CA"
+          }
+        ]
+      },
+      {
+        "name": "consumerSendAmount",
+        "label": "consumer Send Amount",
+        "uiFieldType": "TEXTFIELD",
+        "required": "M",
+        "validations": [
+          {
+            "type": "regex",
+            "expression": "^\\d{10}$"
+          }
+        ]
+      },
+      {
+        "name": "receiver.country",
+        "label": "Receiver Country",
+        "uiFieldType": "LIST",
+        "required": "M",
+        "listValue": [
+          {
+            "displayValue": "Canada",
+            "id": "CA"
+          },
+          {
+            "displayValue": "United States",
+            "id": "US"
+          },
+          {
+            "displayValue": "Mexico",
+            "id": "MX"
+          },
+          {
+            "displayValue": "India",
+            "id": "IN"
+          }
+        ]
+      },
+      {
+        "name": "receiver.currency",
+        "label": "Receiver Currency",
+        "uiFieldType": "LIST",
+        "required": "M",
+        "listValue": [
+          {
+            "displayValue": "Canadian Dollar",
+            "id": "CAD"
+          },
+          {
+            "displayValue": "US Dollars",
+            "id": "USD"
+          },
+          {
+            "displayValue": "Euro",
+            "id": "EUR"
+          },
+          {
+            "displayValue": "Indian Rupee",
+            "id": "INR"
+          }
+        ]
+      }
+    ]
+  }
+}

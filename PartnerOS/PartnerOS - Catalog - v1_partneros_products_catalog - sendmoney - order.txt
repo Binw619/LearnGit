@@ -1,0 +1,197 @@
+/v1/partneros/product/catalog - sendmoney - order
+productName: SENDMONEY / RECEIVEMONEY
+moduleName: Order / Pricing / Config
+
+{
+  "name": "Order Module Catalog API",
+  "version": "1.0.0",
+  "descrition": "This API outlines the dictionary for all the Order module API's",
+  "module": {
+    "name": "Order",
+    "paths": [
+      {
+        "name": "Create",
+        "uri": "/v1/partnerOS/order/create",
+        "type": "POST",
+        "header": [
+          {
+            "name": "x-api-key",
+            "description": "Unique API Key",
+            "required": true
+          }
+        ],
+        "requestFields": [
+          {
+            "name": "sender.firstName"
+          },
+          {
+            "name": "sender.lastName"
+          },
+          {
+            "name": "sender.address.addressLine1"
+          },
+          {
+            "name": "receiver.firstName"
+          },
+          {
+            "name": "receiver.lastName"
+          },
+          {
+            "name": "receiver.address.addressLine1"
+          },
+          {
+            "name": "quoteId"
+          }
+        ],
+        "responseFields": [
+          {
+            "name": "orderId"
+          }
+        ]
+      },
+      {
+        "name": "Confirm",
+        "uri": "/v1/partnerOS/order/confirm",
+        "type": "POST",
+        "header": [
+          {
+            "name": "x-api-key",
+            "description": "Unique API Key",
+            "required": true
+          }
+        ],
+        "requestFields": [
+          {
+            "name": "orderId"
+          }
+        ],
+        "responseFields": [
+          {
+            "name": "transactionId"
+          },
+          {
+            "name": "status"
+          }
+        ]
+      }
+    ]
+  },
+  "schemas": [
+    {
+      "name": "senderCountry",
+      "type": "string",
+      "description": "This is the sender's 2 char ISO Country Code",
+      "max": "2",
+      "regex": "^[A-Z]*"
+    },
+    {
+      "name": "senderCurrency",
+      "type": "string",
+      "description": "This is the sender's 3 char ISO Currency Code",
+      "max": "3"
+    },
+    {
+      "name": "receiverCountry",
+      "type": "string",
+      "description": "This is the receiver's 3 char ISO Currency Code",
+      "max": "2",
+      "regex": "^[A-Z]*"
+    },
+    {
+      "name": "receiverCurrency",
+      "type": "string",
+      "description": "This is the receiver's 3 char ISO Currency Code",
+      "max": "3",
+      "regex": "^[A-Z]*"
+    },
+    {
+      "name": "sender.name.firstName",
+      "type": "string",
+      "description": "This is the Sender's First Name",
+      "regex": "^[A-Z]*/[a-z]*"
+    },
+    {
+      "name": "sender.name.lastName",
+      "type": "string",
+      "description": "This is the Sender's Last Name",
+      "regex": "^[A-Z]*/[a-z]*"
+    },
+    {
+      "name": "receiver.name.lastName",
+      "type": "string",
+      "description": "This is the Receiver's Last Name",
+      "regex": "^[A-Z]*/[a-z]*"
+    },
+    {
+      "name": "receiver.name.lastName",
+      "type": "string",
+      "description": "This is the Receiver's Last Name",
+      "regex": "^[A-Z]*/[a-z]*"
+    },
+    {
+      "name": "address.addressLine1",
+      "type": "string",
+      "description": "This is the Sender/Receiver Address Line1",
+      "regex": "/^[A-Z][a-z][0-9]|[A-Z][0-9][a-z]*"
+    },
+    {
+      "name": "payoutMethod",
+      "type": "string",
+      "enum": [
+        "DIRECT TO BANK",
+        "CASH",
+        "WALLET"
+      ],
+      "description": "This is the Payout method",
+      "regex": "^[A-Z]*"
+    },
+    {
+      "name": "payinMethod",
+      "type": "string",
+      "description": "This is the Payin method",
+      "max": "8",
+      "regex": "^[A-Z]*/[a-z]*"
+    },
+    {
+      "name": "quoteId",
+      "type": "string",
+      "description": "This is the quoteId returned by Quote API",
+      "regex": "^[a-zA-Z0-9]*$"
+    },
+    {
+      "name": "fees",
+      "type": "string",
+      "description": "This is the fees applicable on money transfer",
+      "regex": "^[\\\\d+$/]"
+    },
+    {
+      "name": "taxes",
+      "type": "string",
+      "description": "This is the tax details applicable on money transfer",
+      "regex": "^[\\\\d+$/]"
+    },
+    {
+      "name": "grossAmount",
+      "type": "string",
+      "description": "This is the Gross Amount for transaction"
+    },
+    {
+      "name": "orderId",
+      "type": "string",
+      "description": "This is the orderId returned by Create Order API",
+      "regex": "^[a-zA-Z0-9]*$"
+    },
+    {
+      "name": "transactionId",
+      "type": "string",
+      "description": "This is the transactionId returned by Confirm Order API",
+      "regex": "^[a-zA-Z0-9]*$"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "This is the status returned by Confirm Order API",
+      "regex": "^[A-Z]*/[a-z]*"
+    }
+  ]
+}

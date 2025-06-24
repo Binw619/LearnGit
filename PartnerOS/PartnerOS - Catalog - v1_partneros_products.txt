@@ -1,0 +1,24 @@
+GET /v1/partneros/products
+
+{
+  "name": "Product Catalog API",
+  "version": "1.0.0",
+  "descrition": "This API returns the list of Products and Modules",
+  "products": [
+    {
+      "productName": "SENDMONEY",
+      "modules": [
+        "Config",
+        "Pricing",
+        "Order"
+      ]
+    },
+    {
+      "productName": "RECEIVEMONEY",
+      "modules": [
+        "Inquiry",
+        "Pay"
+      ]
+    }
+  ]
+}

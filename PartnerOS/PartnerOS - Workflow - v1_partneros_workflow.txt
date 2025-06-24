@@ -1,0 +1,139 @@
+GET /v1/partneros/workflow
+productName: SENDMONEY / RECEIVEMONEY
+
+{
+  "name": "SendMoney_Workflow",
+  "version": "1.0.0",
+  "description": "This workflow showcases the number of steps for execution for Send Money flow of Co-branded partners.",
+  "modules": [
+    {
+      "name": "Config",
+      "pathName": "entitledDestination",
+      "pathUri": "/v1/partnerOS/config/entitledDestination",
+      "caching": {
+        "isEnabled": false,
+        "ttl": 0
+      },
+      "metaRequired": false,
+      "successCriterias": [
+        {
+          "context": "$statusCode",
+          "condition": "$statusCode == 200",
+          "type": "JSONPath",
+          "next": "Fees"
+        }
+      ]
+    },
+    {
+      "name": "Pricing",
+      "pathName": "Fees",
+      "pathUri": "/v1/partnerOS/pricing/fees",
+      "caching": {
+        "isEnabled": true,
+        "ttl": 800
+      },
+      "metaRequired": false,
+      "successCriterias": [
+        {
+          "context": "$statusCode",
+          "condition": "$statusCode == 200",
+          "type": "JSONPath",
+          "next": "Quote"
+        }
+      ]
+    },
+    {
+      "name": "Pricing",
+      "pathName": "Quote",
+      "pathUri": "/v1/partnerOS/pricing/quote",
+      "caching": {
+        "isEnabled": true,
+        "ttl": 1200
+      },
+      "metaRequired": true,
+      "metaApi": {
+        "uri": "/v1/partnerOS/meta/pricing/quote"
+      },
+      "successCriterias": [
+        {
+          "context": "$statusCode",
+          "condition": "$statusCode == 200",
+          "type": "JSONPath",
+          "next": "Create"
+        }
+      ],
+      "failureCriterias": [
+        {
+          "context": "$statusCode",
+          "condition": "$statusCode == 500",
+          "type": "$statusCode",
+          "retryAfter": 1000,
+          "retryLimit": 3,
+          "next": "Quote"
+        }
+      ]
+    },
+    {
+      "name": "Order",
+      "pathName": "Create",
+      "pathUri": "/v1/partnerOS/order",
+      "caching": {
+        "isEnabled": true,
+        "ttl": 1200
+      },
+      "metaRequired": true,
+      "metaApi": {
+        "uri": "/v1/partnerOS/meta/order/create",
+        "body": [
+          {
+            "name": "sendCountry"
+          },
+          {
+            "name": "sendCurrency"
+          },
+          {
+            "name": "receiveCountry"
+          },
+          {
+            "name": "receiveCurrency"
+          },
+          {
+            "name": "payoutMethodCode"
+          },
+          {
+            "name": "attemptType"
+          }
+        ]
+      },
+      "successCriterias": [
+        {
+          "context": "$statusCode",
+          "condition": "$statusCode == 200",
+          "type": "JSONPath",
+          "next": "Confirm"
+        }
+      ]
+    },
+    {
+      "name": "Order",
+      "pathName": "Confirm",
+      "pathUri": "/v1/partnerOS/order/confirm",
+      "caching": {
+        "isEnabled": true,
+        "ttl": 1200
+      },
+      "metaRequired": true,
+      "metaApi": {
+        "uri": "/v1/partnerOS/meta/order/confirm"
+      },
+      "successCriterias": [
+        {
+          "context": "$statusCode",
+          "condition": "$statusCode == 200",
+          "type": "JSONPath",
+          "next": "Confirm"
+        }
+      ]
+    }
+  ]
+}
